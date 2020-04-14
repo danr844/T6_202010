@@ -31,7 +31,7 @@ public class View
 		public void printModelo(Modelo modelo)
 		{
 			// TODO implementar
-			for( int i = 0; i<modelo.darNumeroElementosLinear(); i++){
+			for( int i = 0; i<modelo.giveSizeRedBlackBST(); i++){
 				System.out.println("");
 				
 			}

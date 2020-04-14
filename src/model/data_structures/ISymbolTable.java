@@ -6,13 +6,13 @@ public interface ISymbolTable <Key,Value>
 	
 	Value  get(Key key);
 
-	Value delete(Key key);
+	void delete(Key key);
 
 	boolean contains(Key key);
 	
 	boolean isEmpty();
 	
-	int size();
+	int size(Nodo<Key, Value> Node);
 	
 	Iterable<Key> keys();
 }

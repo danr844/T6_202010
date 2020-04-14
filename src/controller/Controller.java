@@ -42,60 +42,46 @@ public class Controller {
 			switch(option)
 			{
 			case 1:
-				Comparendo[] primeroYultimo = new Comparendo[2];
 				view.printMessage("------------------------------------------------------------------------\n Se esta cargando la informacion \n------------------------------------------------------------------------");
-				try 
-				{
-					primeroYultimo= modelo.cargarInfo();
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				view.printMessage("Se cargaron"+ modelo.darNumeroElementosLinear());
-				if(primeroYultimo[0]!=null&& primeroYultimo[1]!= null){
-					view.printMessage("El primer comparendo es:" + primeroYultimo[0].darID()+ "\n "+ primeroYultimo[0].darFecha() + "\n "+ primeroYultimo[0].darLocalidad()+ "\n "+ primeroYultimo[0].darInfraccion()  );
-					view.printMessage("El ultimo comparendo es:" + primeroYultimo[1].darID()+ "\n "+ primeroYultimo[1].darFecha() + "\n "+ primeroYultimo[1].darLocalidad()+ "\n "+ primeroYultimo[1].darInfraccion()  );
-					view.printMessage("El numero de duplas en Linear Probing es:"+ modelo.darNumeroElementosLinear()+"\n"+ "El numero de duplas en separate chaining es:"+ modelo.darNumeroElementosSeparate());
-					view.printMessage("El tamanio inicial de linear probing y separate chaning es de 53");
-					view.printMessage("El tamanio final de linear probing  es de:"+ modelo.darTamaniotablaLinear());
-					view.printMessage("El tamanio final de separate chaning  es de:"+ modelo.darTamaniotablaSeparate());
-					view.printMessage("El factor de carga de Linear Probing es: 75% \n El factor de carga de separate chaning es: 50%");
-					view.printMessage("Se hicieron 0 rehashes para linear probing \n Se hicieron 0 rehashes para separate chaning");
-
+				modelo.cargarInfo();
+				view.printMessage("Se cargaron"+ modelo.giveSizeRedBlackBST());
+				Comparendo maximo = modelo.getMax();
+				Comparendo minimo = modelo.getMin();
+				if(maximo!=null&& minimo != null){
+					view.printMessage("El primer comparendo es:" + maximo.darID()+ "\n "+maximo.darFecha() + "\n "+ maximo.darLocalidad()+ "\n "+ maximo.darInfraccion()  );
+					view.printMessage("El ultimo comparendo es:" + minimo.darID()+ "\n "+ minimo.darFecha() + "\n "+ minimo.darLocalidad()+ "\n "+ minimo.darInfraccion()  );
+				
 
 				}
 				break;
-			case 2:
-				view.printMessage("------------------------------------------------------------------------\n Ingrese la key que desea buscar, toda pegada: \n------------------------------------------------------------------------");
-				String key = lector.next();
-				if(!modelo.existeLlaveLinearProbing(key))
-				{
-					view.printMessage("------------------------------------------------------------------------\n Ingreso una key invalida \n------------------------------------------------------------------------");
-					break;
-				}
-				ArrayList<Comparendo> buscados=modelo.buscarPorKeyLinearProbing(key);
-
-				for(int i=0; i<buscados.size(); i++)
-				{
-					view.printMessage("------------------------------------------------------------------------\n"+"OBJECTID: "+buscados.get(i).darID() +" // FECHA_HORA: "+buscados.get(i).darFecha()+" // CLASE_VEHI: "+buscados.get(i).darClaseVehiculo()+" // INFRACCION: "+buscados.get(i).darInfraccion()+"\n------------------------------------------------------------------------");
-				}
-
-				break;
-
-			case 3:
-				view.printMessage("------------------------------------------------------------------------\n Fecha, Clase Vehiculo e Infraccion en el formato: FechaClaseVehiculoInfraccion: \n------------------------------------------------------------------------");
-				String fechavehiculoInfraccion = lector.next();
-				ArrayList<Comparendo> res = modelo.darComparendosFeClaInfSeparateChaning(fechavehiculoInfraccion);
-				if(res.get(0)==null)
-					view.printMessage(" no existen comparendos con la localidad dada.");
-				else
-				{
-					for(Comparendo e: res){
-						view.printMessage("El primer Comparendo es: "+ e.darID() +" " + e.darFecha()+ " "+e.darInfraccion()+ " "+ " "+ e.darClaseVehiculo()+" "+e.darTipoServicio()+" "+e.darLocalidad()+ "\n---------------------------");
-
-					}
-				}
-				break;
+							case 2:
+								view.printMessage("------------------------------------------------------------------------\n Ingrese la key que desea buscar, toda pegada: \n------------------------------------------------------------------------");
+								int key = lector.nextInt();
+								if(modelo.getKey(key)==null)
+								{
+									view.printMessage("------------------------------------------------------------------------\n Ingreso una key invalida \n------------------------------------------------------------------------");
+									break;
+								}
+								else{
+									Comparendo buscado  =modelo.getKey(key);
+									view.printMessage("------------------------------------------------------------------------\n El comparendo encontrado es:\n" +buscado.darID() +" \n "  +buscado.darFecha() +"\n " + buscado.darTipoServicio()+"\n "+ buscado.darClaseVehiculo()+"\n"+buscado.darInfraccion()+"\n"+"------------------------------------------------------------------------");
+								}
+								break;
+				
+				//			case 3:
+				//				view.printMessage("------------------------------------------------------------------------\n Fecha, Clase Vehiculo e Infraccion en el formato: FechaClaseVehiculoInfraccion: \n------------------------------------------------------------------------");
+				//				String fechavehiculoInfraccion = lector.next();
+				//				ArrayList<Comparendo> res = modelo.darComparendosFeClaInfSeparateChaning(fechavehiculoInfraccion);
+				//				if(res.get(0)==null)
+				//					view.printMessage(" no existen comparendos con la localidad dada.");
+				//				else
+				//				{
+				//					for(Comparendo e: res){
+				//						view.printMessage("El primer Comparendo es: "+ e.darID() +" " + e.darFecha()+ " "+e.darInfraccion()+ " "+ " "+ e.darClaseVehiculo()+" "+e.darTipoServicio()+" "+e.darLocalidad()+ "\n---------------------------");
+				//
+				//					}
+				//				}
+				//				break;
 				//			case 3:
 				//				view.printMessage("------------------------------------------------------------------------\n Ingrese la fecha que desea usar en el formato yyyy/MM/dd: \n------------------------------------------------------------------------");
 				//				String fechaS = lector.next();
