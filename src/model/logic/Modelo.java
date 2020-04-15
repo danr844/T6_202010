@@ -15,6 +15,7 @@ import com.google.gson.stream.JsonReader;
 import model.data_structures.ArregloDinamico;
 import model.data_structures.Comparendo;
 import model.data_structures.Nodo;
+import model.data_structures.Queue;
 import model.data_structures.RedBlackBST;
 
 /**
@@ -126,13 +127,24 @@ public class Modelo
 		return treeRedBlack.getMin();
 	}
 	public Comparendo getMax(){
-		return treeRedBlack.getMax();
+		return treeRedBlack.getMaxValue();
 	}
 	public Comparendo getKey(int key){
 		return treeRedBlack.get(key);
 	}
 	public void addArregloDinamico(Comparendo multa){
 		array.agregar(multa);
+	}
+	public int giveHeight(){
+		return treeRedBlack.height();
+	}
+	public Queue<Comparendo> comparendosEnRango(int ObjectId_Min, int ObjectId_max){
+		Queue<Comparendo>res= new Queue<Comparendo>();
+		for(Integer key:treeRedBlack.keys()){
+			if(key<=ObjectId_max&&key>=ObjectId_Min)
+				res.enqueue(treeRedBlack.get(key));
+		}
+		return res;
 	}
 	
 }

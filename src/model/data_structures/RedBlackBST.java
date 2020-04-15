@@ -192,7 +192,7 @@ public class RedBlackBST < Key extends Comparable<Key>, Value>{
 	} 
 
 	
-	public Value getMax(){
+	public Value getMaxValue(){
 		return max(root).val;
 	}
 	private Nodo<Key, Value> max(Nodo<Key, Value> x) { 
@@ -202,6 +202,13 @@ public class RedBlackBST < Key extends Comparable<Key>, Value>{
 		else    
 			return min(x.right); 
 	} 
+	public Key maxKey() {
+        if (isEmpty()) throw new NoSuchElementException("calls max() with empty symbol table");
+        return max(root).key;
+    } 
+
+    // the largest key in the subtree rooted at x; null if no such key
+
 
 
 	/**
@@ -254,6 +261,46 @@ public class RedBlackBST < Key extends Comparable<Key>, Value>{
 			return 0;
 		return h.size;
 	}
-	public Iterable<Key> keys() {return null;}
+	/**
+     * Returns all keys in the symbol table as an {@code Iterable}.
+     * To iterate over all of the keys in the symbol table named {@code st},
+     * use the foreach notation: {@code for (Key key : st.keys())}.
+     * @return all keys in the symbol table as an {@code Iterable}
+     */
+    public Iterable<Key> keys() {
+        if (isEmpty()) return new Queue<Key>();
+        return keys(min(), maxKey());
+    }
 
+    /**
+     * Returns all keys in the symbol table in the given range,
+     * as an {@code Iterable}.
+     *
+     * @param  lo minimum endpoint
+     * @param  hi maximum endpoint
+     * @return all keys in the symbol table between {@code lo} 
+     *    (inclusive) and {@code hi} (inclusive) as an {@code Iterable}
+     * @throws IllegalArgumentException if either {@code lo} or {@code hi}
+     *    is {@code null}
+     */
+    public Iterable<Key> keys(Key lo, Key hi) {
+        if (lo == null) throw new IllegalArgumentException("first argument to keys() is null");
+        if (hi == null) throw new IllegalArgumentException("second argument to keys() is null");
+
+        Queue<Key> queue = new Queue<Key>();
+        // if (isEmpty() || lo.compareTo(hi) > 0) return queue;
+        keys(root, queue, lo, hi);
+        return queue;
+    } 
+
+    // add the keys between lo and hi in the subtree rooted at x
+    // to the queue
+    private void keys(Nodo<Key, Value> x, Queue<Key> queue, Key lo, Key hi) { 
+        if (x == null) return; 
+        int cmplo = lo.compareTo(x.key); 
+        int cmphi = hi.compareTo(x.key); 
+        if (cmplo < 0) keys(x.left, queue, lo, hi); 
+        if (cmplo <= 0 && cmphi >= 0) queue.enqueue(x.key); 
+        if (cmphi > 0) keys(x.right, queue, lo, hi); 
+    } 
 }
