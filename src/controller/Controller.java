@@ -79,10 +79,18 @@ public class Controller {
 					view.printMessage("------------------------------------------------------------------------\n El comparendo encontrado es:\n" +buscado1.darID() +" \n "  +buscado1.darFecha() +"\n " + buscado1.darTipoServicio()+"\n "+ buscado1.darClaseVehiculo()+"\n"+buscado1.darInfraccion()+"\n"+"------------------------------------------------------------------------");
 
 				}
+
+				break;
+			case 4:
+				
 				view.printMessage(modelo.giveSizeRedBlackBST()+" Es el tamanio del RedBlackBST ");
 				view.printMessage(modelo.giveHeight()+" es la altura del RedBlackBST ");
-
-
+				view.printMessage(modelo.alturaPromedio()+" es la altura promedio del RedBlackBST \n \n \n");
+				break;
+			case 5:
+				view.printMessage("El programa fue cerrado.");
+				lector.close();
+				fin=true;
 				break;
 
 			default: 

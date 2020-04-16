@@ -146,5 +146,10 @@ public class Modelo
 		}
 		return res;
 	}
-	
+	public double alturaPromedio(){
+		return treeRedBlack.heightProm();
+	}
+	public  RedBlackBST<Integer, Comparendo> giveTree(){
+		return treeRedBlack;
+	}
 }

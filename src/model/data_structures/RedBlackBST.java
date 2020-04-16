@@ -292,6 +292,15 @@ public class RedBlackBST < Key extends Comparable<Key>, Value>{
         keys(root, queue, lo, hi);
         return queue;
     } 
+    public double heightProm(){
+    	return heightProm(root)/size;
+    	
+    }
+    private double heightProm(Nodo<Key,Value>h){
+    	if(h==null) return 0;
+    	else
+    	return 1+heightProm(h.left)+heightProm(h.right);
+    }
 
     // add the keys between lo and hi in the subtree rooted at x
     // to the queue
